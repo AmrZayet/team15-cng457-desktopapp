@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<SplitPane dividerPositions="0.3317, 0.5" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" orientation="VERTICAL" prefHeight="480.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.Controller">
+  <items>
+    <AnchorPane minHeight="-Infinity" minWidth="-Infinity" prefHeight="160.0" prefWidth="600.0">
+         <children>
+            <RadioButton fx:id="computerRadioButton" layoutX="36.0" layoutY="26.0" mnemonicParsing="false" text="Computer">
+               <toggleGroup>
+                  <ToggleGroup fx:id="choice" />
+               </toggleGroup>
+            </RadioButton>
+            <RadioButton fx:id="phoneRadioButton" layoutX="36.0" layoutY="93.0" mnemonicParsing="false" text="Phone" toggleGroup="$choice" />
+            <Button layoutX="300.0" layoutY="55.0" mnemonicParsing="false" onAction="#getProductsButtonPressed" text="Get Products" />
+         </children></AnchorPane>
+    <AnchorPane minHeight="-Infinity" minWidth="-Infinity" prefHeight="160.0" prefWidth="600.0">
+         <children>
+            <ListView fx:id="productsListView" editable="true" layoutX="2.0" prefHeight="160.0" prefWidth="400.0" />
+            <Button layoutX="415.0" layoutY="14.0" mnemonicParsing="false" onAction="#sortButtonPressed" text="Sort" />
+            <Button layoutX="415.0" layoutY="67.0" mnemonicParsing="false" onAction="#compareButtonPressed" text="Compare" />
+         </children></AnchorPane>
+      <AnchorPane layoutX="10.0" layoutY="10.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="160.0" prefWidth="600.0">
+         <children>
+            <TableView fx:id="compareDetailsTableView" editable="true" layoutX="2.0" layoutY="9.0" prefHeight="75.0" prefWidth="600.0">
+              <columns>
+                <TableColumn prefWidth="30.0" text="Device" />
+                <TableColumn prefWidth="30.0" text="ID" />
+                  <TableColumn prefWidth="45.0" text="Brand" />
+                  <TableColumn prefWidth="100.0" text="Model" />
+                  <TableColumn prefWidth="45.0" text="ScrSize" />
+                  <TableColumn prefWidth="60.0" text="Rsolution" />
+                  <TableColumn prefWidth="90.0" text="processor" />
+                  <TableColumn prefWidth="45.0" text="Memory" />
+                  <TableColumn prefWidth="60.0" text="Storage" />
+                  <TableColumn prefWidth="60.0" text="Price" />
+              </columns>
+            </TableView>
+         </children></AnchorPane>
+  </items>
+   <padding>
+      <Insets bottom="14.0" left="14.0" right="14.0" top="14.0" />
+   </padding>
+</SplitPane>
