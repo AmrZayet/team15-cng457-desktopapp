@@ -108,8 +108,10 @@ public class Controller {
         else return key;
     }
 
-    public void initialize() {
-//        operationComboBox.getItems().addAll("+", "-", "*", "/");
+    public void initialize() throws IOException, ParseException {
+
+        getAdditionalFeatures();
+
         operation1ComboBox.getItems().addAll("=", ">", "<", ">=", "<=");
         operation2ComboBox.getItems().addAll("=", ">", "<", ">=", "<=");
         operation3ComboBox.getItems().addAll("=", ">", "<", ">=", "<=");
@@ -298,6 +300,32 @@ public class Controller {
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
+    public void getAdditionalFeatures() throws IOException, ParseException {
+        String response = "";
+        HttpURLConnection connection = (HttpURLConnection) new URL("http://localhost:8080/getFeatures").openConnection();
+        connection.setRequestMethod("GET");
+        int responseCode = connection.getResponseCode();
+        if(responseCode == 200) {
+            Scanner scanner = new Scanner(connection.getInputStream());
+            while (scanner.hasNextLine()) {
+                response += scanner.nextLine();
+                response += "\n";
+            }
+            scanner.close();
+        }
+        JSONParser parser = new JSONParser();
+
+        Object obj = parser.parse(response);
+        JSONArray array = (JSONArray) obj;
+        additionalFeatureComboBox.getItems().clear();
+        for (int i = 0; i < array.size(); i++) {
+            JSONObject tempObj = (JSONObject) array.get(i);
+
+            String tempFeatureName = tempObj.get("featureName").toString();
+            additionalFeatureComboBox.getItems().add(tempFeatureName);
+        }
+    }
+
     public Computer parseComputer(JSONObject tempObj) {
         int tempComputerID = Integer.parseInt(tempObj.get("computerID").toString());
         String tempBrand = tempObj.get("brand").toString();
@@ -354,7 +382,7 @@ public class Controller {
                 JSONObject tempObj = (JSONObject) array.get(i);
 
 
-                Computer tempComputer =parseComputer(tempObj);
+                Computer tempComputer = parseComputer(tempObj);
                 computerList.add(tempComputer);
 
                 tempProduct = tempComputer.getDetails();
@@ -396,6 +424,7 @@ public class Controller {
     }
 
     public String createSearchURL() {
+
         String url = "http://localhost:8080/search";
         if (computerRadioButton.isSelected()) {
             url += "Computers/";
@@ -403,39 +432,113 @@ public class Controller {
         else if(phoneRadioButton.isSelected()) {
             url += "Phones/";
         }
+        else {
+            Alert a = new Alert(Alert.AlertType.ERROR);
+            a.setTitle("Error!");
+            a.setContentText("You should choose either computer or phone");
+            a.show();
+            return null;
+        }
 
-        if(baseFeaturesRadioButton.isSelected()) {
-            url += "base/";
+        int searchCount = 0;
+        if(bothFeaturesRadioButton.isSelected()) {
+
+        }
+        else if (bothFeaturesRadioButton.isSelected() || additionalFeaturesRadioButton.isSelected()) {
+            if (additionalFeatureComboBox.getValue() != null) {
+                if (bothFeaturesRadioButton.isSelected()) url += "both/";
+                else url += "add/";
+
+                url += additionalFeatureComboBox.getValue().toString();
+                searchCount +=1;
+            }
+        }
+        if(bothFeaturesRadioButton.isSelected() || baseFeaturesRadioButton.isSelected()) {
+            if (bothFeaturesRadioButton.isSelected() && searchCount > 0) url += "_";
+            else url += "base/";
 
             if (feature1ComboBox.getValue() != null && !feature1TextField.getText().equals("")) {
                 String tmpString = feature1ComboBox.getValue().toString();
                 if (numericKeys.contains(tmpString)) {
                     if (operation1ComboBox.getValue() != null) {
                         url += String.format("%s=%s=%s", keyParser(tmpString), operationParser(operation1ComboBox.getValue().toString()), feature1TextField.getText());
+                        searchCount += 1;
                     } else {
-                        System.out.println("not suitable for searching");
-                        return null;
+                        System.out.println("searchRow 1 not suitable for searching");
                     }
                 } else {
                     url += String.format("%s=%s", keyParser(tmpString), feature1TextField.getText());
+                    searchCount += 1;
                 }
-            } else {
-                System.out.println("To be updated not suitable for searching");
-                return null;
             }
+
+            if (search2CheckBox.isSelected() && feature2ComboBox.getValue() != null && !feature2TextField.getText().equals("")) {
+                String tmpString = feature2ComboBox.getValue().toString();
+                if (numericKeys.contains(tmpString)) {
+                    if (operation2ComboBox.getValue() != null) {
+                        if (searchCount > 0) url += "&";
+                        url += String.format("%s=%s=%s", keyParser(tmpString), operationParser(operation2ComboBox.getValue().toString()), feature2TextField.getText());
+                        searchCount += 1;
+                    } else {
+                        System.out.println("searchRow 2 not suitable for searching");
+                    }
+                } else {
+                    if (searchCount > 0) url += "&";
+                    url += String.format("%s=%s", keyParser(tmpString), feature2TextField.getText());
+                    searchCount += 1;
+                }
+            }
+
+            if (search3CheckBox.isSelected() && feature3ComboBox.getValue() != null && !feature3TextField.getText().equals("")) {
+                String tmpString = feature3ComboBox.getValue().toString();
+                if (numericKeys.contains(tmpString)) {
+                    if (operation3ComboBox.getValue() != null) {
+                        if (searchCount > 0) url += "&";
+                        url += String.format("%s=%s=%s", keyParser(tmpString), operationParser(operation3ComboBox.getValue().toString()), feature3TextField.getText());
+                        searchCount += 1;
+                    } else {
+                        System.out.println("searchRow 3 not suitable for searching");
+                    }
+                } else {
+                    if (searchCount > 0) url += "&";
+                    url += String.format("%s=%s", keyParser(tmpString), feature3TextField.getText());
+                    searchCount += 1;
+                }
+            }
+
+            if (search4CheckBox.isSelected() && feature4ComboBox.getValue() != null && !feature4TextField.getText().equals("")) {
+                String tmpString = feature4ComboBox.getValue().toString();
+                if (numericKeys.contains(tmpString)) {
+                    if (operation4ComboBox.getValue() != null) {
+                        if (searchCount > 0) url += "&";
+                        url += String.format("%s=%s=%s", keyParser(tmpString), operationParser(operation4ComboBox.getValue().toString()), feature4TextField.getText());
+                        searchCount += 1;
+                    } else {
+                        System.out.println("searchRow 4 not suitable for searching");
+                    }
+                } else {
+                    if (searchCount > 0) url += "&";
+                    url += String.format("%s=%s", keyParser(tmpString), feature4TextField.getText());
+                    searchCount += 1;
+                }
+            }
+
         }
         else if(additionalFeaturesRadioButton.isSelected()) {
 
         }
-        return url;
+        if (searchCount == 0) return null;
+        else return url;
     }
 
 
     public void searchProducts(ActionEvent event) throws IOException, ParseException {
         String url = createSearchURL();
+        System.out.println(url);
         if (url == null) {
             return;
         }
+
 
         productsListView.getItems().clear();
         String response = "";
