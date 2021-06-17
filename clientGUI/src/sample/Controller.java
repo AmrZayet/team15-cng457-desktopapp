@@ -296,6 +296,38 @@ public class Controller {
         }
     }
 
+////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    public Computer parseComputer(JSONObject tempObj) {
+        int tempComputerID = Integer.parseInt(tempObj.get("computerID").toString());
+        String tempBrand = tempObj.get("brand").toString();
+        String tempModel = tempObj.get("model").toString();
+        float tempScreenSize = Float.parseFloat(tempObj.get("screenSize").toString());
+        String tempScreenResolution = tempObj.get("screenResolution").toString();
+        String tempProcessor = tempObj.get("processor").toString();
+        int tempMemory = Integer.parseInt(tempObj.get("memory").toString());
+        float tempStorageCapacity = Float.parseFloat(tempObj.get("storageCapacity").toString());
+        float tempPrice = Float.parseFloat(tempObj.get("price").toString());
+
+        Computer tempComputer;
+        tempComputer = new Computer(tempComputerID, tempBrand,tempModel, tempScreenSize, tempScreenResolution, tempProcessor, tempMemory,tempStorageCapacity, tempPrice);
+        return tempComputer;
+    }
+
+    public Phone parsePhone(JSONObject tempObj) {
+        int tempPhoneID = Integer.parseInt(tempObj.get("phoneID").toString());
+        String tempBrand = tempObj.get("brand").toString();
+        String tempModel = tempObj.get("model").toString();
+        float tempScreenSize = Float.parseFloat(tempObj.get("screenSize").toString());
+        float tempInternalMemory = Float.parseFloat(tempObj.get("internalMemory").toString());
+        float tempPrice = Float.parseFloat(tempObj.get("price").toString());
+
+        Phone tempPhone;
+        tempPhone = new Phone(tempPhoneID, tempBrand,tempModel, tempScreenSize, tempInternalMemory, tempPrice);
+        return tempPhone;
+    }
+
+
     public void getAllProductsButtonPressed(ActionEvent event) throws IOException, ParseException {
         if (computerRadioButton.isSelected()) {
             productsListView.getItems().clear();
@@ -321,26 +353,14 @@ public class Controller {
             for (int i = 0; i < array.size(); i++) {
                 JSONObject tempObj = (JSONObject) array.get(i);
 
-                int tempComputerID = Integer.parseInt(tempObj.get("computerID").toString());
-                String tempBrand = tempObj.get("brand").toString();
-                String tempModel = tempObj.get("model").toString();
-                float tempScreenSize = Float.parseFloat(tempObj.get("screenSize").toString());
-                String tempScreenResolution = tempObj.get("screenResolution").toString();
-                String tempProcessor = tempObj.get("processor").toString();
-                int tempMemory = Integer.parseInt(tempObj.get("memory").toString());
-                float tempStorageCapacity = Float.parseFloat(tempObj.get("storageCapacity").toString());
-                float tempPrice = Float.parseFloat(tempObj.get("price").toString());
 
-                Computer tempComputer;
-                tempComputer = new Computer(tempComputerID, tempBrand,tempModel, tempScreenSize, tempScreenResolution, tempProcessor, tempMemory,tempStorageCapacity, tempPrice);
+                Computer tempComputer =parseComputer(tempObj);
                 computerList.add(tempComputer);
-                tempProduct = tempComputer.getDetails();
 
+                tempProduct = tempComputer.getDetails();
                 productList.add(tempProduct);
                 productsListView.getItems().add(tempProduct);
             }
-//            productsListView.getItems().addAll(0, productList);
-
         }
         else if (phoneRadioButton.isSelected()) {
             productsListView.getItems().clear();
@@ -365,124 +385,104 @@ public class Controller {
             for (int i = 0; i < array.size(); i++) {
                 JSONObject tempObj = (JSONObject) array.get(i);
 
-                int tempPhoneID = Integer.parseInt(tempObj.get("phoneID").toString());
-                String tempBrand = tempObj.get("brand").toString();
-                String tempModel = tempObj.get("model").toString();
-                float tempScreenSize = Float.parseFloat(tempObj.get("screenSize").toString());
-                float tempInternalMemory = Float.parseFloat(tempObj.get("internalMemory").toString());
-                float tempPrice = Float.parseFloat(tempObj.get("price").toString());
-
-                Phone tempPhone;
-                tempPhone = new Phone(tempPhoneID, tempBrand,tempModel, tempScreenSize, tempInternalMemory, tempPrice);
+                Phone tempPhone = parsePhone(tempObj);
                 phoneList.add(tempPhone);
-                tempProduct = tempPhone.getDetails();
 
+                tempProduct = tempPhone.getDetails();
                 productList.add(tempProduct);
                 productsListView.getItems().add(tempProduct);
             }
         }
     }
 
-    public void searchProducts(ActionEvent event) throws IOException, ParseException {
-        String productKind = "";
+    public String createSearchURL() {
+        String url = "http://localhost:8080/search";
         if (computerRadioButton.isSelected()) {
-            productKind = "Computers/";
+            url += "Computers/";
         }
         else if(phoneRadioButton.isSelected()) {
-            productKind = "Phones/";
+            url += "Phones/";
         }
-
-        String url = "http://localhost:8080/search";
-        url += productKind;
 
         if(baseFeaturesRadioButton.isSelected()) {
             url += "base/";
 
-            if(feature1ComboBox.getValue() != null && !feature1TextField.getText().equals("")) {
+            if (feature1ComboBox.getValue() != null && !feature1TextField.getText().equals("")) {
                 String tmpString = feature1ComboBox.getValue().toString();
                 if (numericKeys.contains(tmpString)) {
                     if (operation1ComboBox.getValue() != null) {
-                        url += String.format("%s=%s=%s", keyParser(tmpString), operationParser(operation1ComboBox.getValue().toString()),feature1TextField.getText());
+                        url += String.format("%s=%s=%s", keyParser(tmpString), operationParser(operation1ComboBox.getValue().toString()), feature1TextField.getText());
                     } else {
                         System.out.println("not suitable for searching");
-                        return;
+                        return null;
                     }
-                }
-                else {
+                } else {
                     url += String.format("%s=%s", keyParser(tmpString), feature1TextField.getText());
                 }
-            }
-            else {
+            } else {
                 System.out.println("To be updated not suitable for searching");
-                return;
+                return null;
             }
-
-            productsListView.getItems().clear();
-            String response = "";
-            HttpURLConnection connection = (HttpURLConnection) new URL(url).openConnection();
-            connection.setRequestMethod("GET");
-            int responseCode = connection.getResponseCode();
-            if(responseCode == 200) {
-                Scanner scanner = new Scanner(connection.getInputStream());
-                while (scanner.hasNextLine()) {
-                    response += scanner.nextLine();
-                    response += "\n";
-                }
-                scanner.close();
-            }
-            JSONParser parser = new JSONParser();
-
-            Object obj = parser.parse(response);
-            JSONArray array = (JSONArray) obj;
-            String tempProduct = "";
-
-            if (computerRadioButton.isSelected()) {
-                computerList.clear();
-                for (int i = 0; i < array.size(); i++) {
-                    JSONObject tempObj = (JSONObject) array.get(i);
-
-                    int tempComputerID = Integer.parseInt(tempObj.get("computerID").toString());
-                    String tempBrand = tempObj.get("brand").toString();
-                    String tempModel = tempObj.get("model").toString();
-                    float tempScreenSize = Float.parseFloat(tempObj.get("screenSize").toString());
-                    String tempScreenResolution = tempObj.get("screenResolution").toString();
-                    String tempProcessor = tempObj.get("processor").toString();
-                    int tempMemory = Integer.parseInt(tempObj.get("memory").toString());
-                    float tempStorageCapacity = Float.parseFloat(tempObj.get("storageCapacity").toString());
-                    float tempPrice = Float.parseFloat(tempObj.get("price").toString());
-
-                    Computer tempComputer;
-                    tempComputer = new Computer(tempComputerID, tempBrand,tempModel, tempScreenSize, tempScreenResolution, tempProcessor, tempMemory,tempStorageCapacity, tempPrice);
-                    computerList.add(tempComputer);
-                    tempProduct = tempComputer.getDetails();
-
-                    productList.add(tempProduct);
-                    productsListView.getItems().add(tempProduct);
-                }
-            }
-            else if (phoneRadioButton.isSelected()) {
-                phoneList.clear();
-                for (int i = 0; i < array.size(); i++) {
-                    JSONObject tempObj = (JSONObject) array.get(i);
-
-                    int tempPhoneID = Integer.parseInt(tempObj.get("phoneID").toString());
-                    String tempBrand = tempObj.get("brand").toString();
-                    String tempModel = tempObj.get("model").toString();
-                    float tempScreenSize = Float.parseFloat(tempObj.get("screenSize").toString());
-                    float tempInternalMemory = Float.parseFloat(tempObj.get("internalMemory").toString());
-                    float tempPrice = Float.parseFloat(tempObj.get("price").toString());
-
-                    Phone tempPhone;
-                    tempPhone = new Phone(tempPhoneID, tempBrand,tempModel, tempScreenSize, tempInternalMemory, tempPrice);
-                    phoneList.add(tempPhone);
-                    tempProduct = tempPhone.getDetails();
-
-                    productList.add(tempProduct);
-                    productsListView.getItems().add(tempProduct);
-                }
-            }
+        }
+        else if(additionalFeaturesRadioButton.isSelected()) {
 
         }
+        return url;
+    }
+
+
+    public void searchProducts(ActionEvent event) throws IOException, ParseException {
+        String url = createSearchURL();
+        if (url == null) {
+            return;
+        }
+
+        productsListView.getItems().clear();
+        String response = "";
+        HttpURLConnection connection = (HttpURLConnection) new URL(url).openConnection();
+        connection.setRequestMethod("GET");
+        int responseCode = connection.getResponseCode();
+        if(responseCode == 200) {
+            Scanner scanner = new Scanner(connection.getInputStream());
+            while (scanner.hasNextLine()) {
+                response += scanner.nextLine();
+                response += "\n";
+            }
+            scanner.close();
+        }
+        JSONParser parser = new JSONParser();
+
+        Object obj = parser.parse(response);
+        JSONArray array = (JSONArray) obj;
+        String tempProduct = "";
+
+        if (computerRadioButton.isSelected()) {
+            computerList.clear();
+            for (int i = 0; i < array.size(); i++) {
+                JSONObject tempObj = (JSONObject) array.get(i);
+
+                Computer tempComputer = parseComputer(tempObj);
+                computerList.add(tempComputer);
+
+                tempProduct = tempComputer.getDetails();
+                productList.add(tempProduct);
+                productsListView.getItems().add(tempProduct);
+            }
+        }
+        else if (phoneRadioButton.isSelected()) {
+            phoneList.clear();
+            for (int i = 0; i < array.size(); i++) {
+                JSONObject tempObj = (JSONObject) array.get(i);
+
+                Phone tempPhone = parsePhone(tempObj);
+                phoneList.add(tempPhone);
+
+                tempProduct = tempPhone.getDetails();
+                productList.add(tempProduct);
+                productsListView.getItems().add(tempProduct);
+            }
+        }
+
     }
 
     public void sortButtonPressed(ActionEvent event) {
