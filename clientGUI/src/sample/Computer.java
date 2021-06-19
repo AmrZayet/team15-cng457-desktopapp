@@ -1,5 +1,8 @@
 package sample;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class Computer {
 
     private int computerID;
@@ -11,6 +14,8 @@ public class Computer {
     private int memory;
     private float storageCapacity;
     private float price;
+
+    private List<Review> reviews;
 
     public Computer(int computerID, String brand, String model, float screenSize, String screenResolution, String processor, int memory, float storageCapacity, float price) {
         this.computerID = computerID;
@@ -96,6 +101,13 @@ public class Computer {
         this.price = price;
     }
 
+    public List<Review> getReviews() {
+        return reviews;
+    }
+
+    public void setReviews(List<Review> reviews) {
+        this.reviews = reviews;
+    }
 
     public String getDetails() {
         String tempString = String.format("%s %s ", brand, model);
@@ -120,6 +132,7 @@ public class Computer {
                 ", memory=" + memory +
                 ", storageCapacity=" + storageCapacity +
                 ", price=" + price +
+                ", reviews=" + reviews +
                 '}';
     }
 }
