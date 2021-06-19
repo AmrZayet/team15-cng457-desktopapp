@@ -1,8 +1,6 @@
 module clientGUI {
-    requires javafx.graphics;
-    requires javafx.controls;
     requires javafx.fxml;
-    requires json.simple;
-
+    requires javafx.controls;
     opens sample;
+    requires json.simple;
 }
