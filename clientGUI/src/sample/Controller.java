@@ -21,6 +21,8 @@ import java.util.Scanner;
 
 public class Controller {
 
+    int numberOfDevice=0;
+
     @FXML
     private RadioButton computerRadioButton;
     @FXML
@@ -48,8 +50,8 @@ public class Controller {
     private List<Computer> computerList = new ArrayList<>();
     private List<Phone> phoneList = new ArrayList<>();
 
-    private int indexArray[]= {-1,-1,-1};
-    private String deviceType="notDefined";
+   // private int indexArray[]= {-1,-1,-1};
+    //private String deviceType="notDefined";
 
     @FXML
     private ListView<String>  comparision1ClassListView;
@@ -199,7 +201,6 @@ public class Controller {
             feature3ComboBox.getItems().addAll(computerSearchKeys);
             feature4ComboBox.getItems().addAll(computerSearchKeys);
             System.out.println(1);
-            deviceType="Computer";
             comparision1ClassListView.getItems().clear();
             comparision1ClassListView.getItems().add("Device No");
             for(String a:computerSearchKeys){
@@ -212,7 +213,7 @@ public class Controller {
             feature3ComboBox.getItems().addAll(phoneSearchKeys);
             feature4ComboBox.getItems().addAll(phoneSearchKeys);
             System.out.println(2);
-            deviceType="Phone";
+
             comparision1ClassListView.getItems().clear();
             comparision1ClassListView.getItems().add("Device No");
             for(String a:phoneSearchKeys){
@@ -648,11 +649,20 @@ public class Controller {
     public void sortButtonPressed(ActionEvent event) {
 
     }
+    public void clearComparisionButtonPressed(ActionEvent event) {
+        numberOfDevice=0;
+        comparision1Device1ListReview.getItems().clear();
+        comparision1Device2ListReview.getItems().clear();
+        comparision1Device3ListReview.getItems().clear();
+
+    }
 
     public void addintocompareButtonPressed(ActionEvent event) {
 
 
         if(computerRadioButton.isSelected()){
+
+            if(numberOfDevice==0){
 
             for (int i=0;i< computerList.size();i++) {
                 if(computerList.get(i).getDetails().equals(productsListView.getSelectionModel().getSelectedItem())){
@@ -670,121 +680,115 @@ public class Controller {
                     comparision1Device1ListReview.getItems().add(String.valueOf(temp.getStorageCapacity()));
                     comparision1Device1ListReview.getItems().add(String.valueOf(temp.getPrice()));
                     //comparision1Device1ListReview.getItems().add();
-
                    // ComparisionListView.getItems().add(productsListView.getSelectionModel().getSelectedItem());
-
                     break;
-                }
-
-
+                }}
             }
+            if(numberOfDevice==1){
 
-        }
-        else if(phoneRadioButton.isSelected()){
-
-
-
-        }
-        //computerList
-    //   ComparisionListView.getItems().add(productsListView.getSelectionModel().getSelectedItem());
-     /*   int numberOfDevice=0;
-
-
-        int counter=0;
-
-        for(int i=0;i<3;i++){
-            if(indexArray[i]!=-1){
-                numberOfDevice=i;
-                break;
-            }
-
-        if(deviceType!="Computer" || deviceType!="Phone") {
-
-            for (int i=0;i< computerList.size();i++) {
-                if(computerList.get(i).getDetails().equals(productsListView.getSelectionModel().getSelectedItem())){
-                    deviceType="Computer";
-                    indexArray[numberOfDevice]=i;
-                    //counter=0;
-                    ComparisionListView.getItems().add(productsListView.getSelectionModel().getSelectedItem());
-
-                    break;
-                }
-                counter++;
-
-            }
-
-            for (Phone a : phoneList) {
-
-                if(a.getDetails().equals(productsListView.getSelectionModel().getSelectedItem())){
-                    deviceType="Phone";
-                    indexArray[numberOfDevice]=counter;
-                    counter=0;
-                    ComparisionListView.getItems().add(productsListView.getSelectionModel().getSelectedItem());
-                    break;
-                }
-                counter++;
-
-            }
-        }
-        else{
-            if(deviceType.equals("Phone")){
-                for (Phone a : phoneList) {
-
-                    if(a.getDetails()==productsListView.getSelectionModel().getSelectedItem()){
-                        deviceType="Phone";
-                        indexArray[numberOfDevice]=counter;
-                        counter=0;
-                        ComparisionListView.getItems().add(productsListView.getSelectionModel().getSelectedItem());
+                for (int i=0;i< computerList.size();i++) {
+                    if(computerList.get(i).getDetails().equals(productsListView.getSelectionModel().getSelectedItem())){
+                        /*("computer ID", "brand", "model", "screen size", "resolution", "processor", "memory", "storage", "price");*/
+                        Computer temp = computerList.get(i);
+                        comparision1Device2ListReview.getItems().clear();
+                        comparision1Device2ListReview.getItems().add("2");
+                        comparision1Device2ListReview.getItems().add(String.valueOf(temp.getComputerID()));
+                        comparision1Device2ListReview.getItems().add(temp.getBrand());
+                        comparision1Device2ListReview.getItems().add(temp.getModel());
+                        comparision1Device2ListReview.getItems().add(String.valueOf(temp.getScreenSize()));
+                        comparision1Device2ListReview.getItems().add(temp.getScreenResolution());
+                        comparision1Device2ListReview.getItems().add(temp.getProcessor());
+                        comparision1Device2ListReview.getItems().add(String.valueOf(temp.getMemory()));
+                        comparision1Device2ListReview.getItems().add(String.valueOf(temp.getStorageCapacity()));
+                        comparision1Device2ListReview.getItems().add(String.valueOf(temp.getPrice()));
+                        //comparision1Device1ListReview.getItems().add();
+                        // ComparisionListView.getItems().add(productsListView.getSelectionModel().getSelectedItem());
                         break;
-                    }
-                    counter++;
-
-                }
+                    }}
             }
-            if(deviceType=="Computer"){
-                for (Computer a : computerList) {
+            if(numberOfDevice==2){
 
-                    if(a.getDetails()==productsListView.getSelectionModel().getSelectedItem()){
-                        deviceType="Computer";
-                        indexArray[numberOfDevice]=counter;
-                        counter=0;
-                        ComparisionListView.getItems().add(productsListView.getSelectionModel().getSelectedItem());
+                for (int i=0;i< computerList.size();i++) {
+                    if(computerList.get(i).getDetails().equals(productsListView.getSelectionModel().getSelectedItem())){
+                        /*("computer ID", "brand", "model", "screen size", "resolution", "processor", "memory", "storage", "price");*/
+                        Computer temp = computerList.get(i);
+                        comparision1Device3ListReview.getItems().clear();
+                        comparision1Device3ListReview.getItems().add("3");
+                        comparision1Device3ListReview.getItems().add(String.valueOf(temp.getComputerID()));
+                        comparision1Device3ListReview.getItems().add(temp.getBrand());
+                        comparision1Device3ListReview.getItems().add(temp.getModel());
+                        comparision1Device3ListReview.getItems().add(String.valueOf(temp.getScreenSize()));
+                        comparision1Device3ListReview.getItems().add(temp.getScreenResolution());
+                        comparision1Device3ListReview.getItems().add(temp.getProcessor());
+                        comparision1Device3ListReview.getItems().add(String.valueOf(temp.getMemory()));
+                        comparision1Device3ListReview.getItems().add(String.valueOf(temp.getStorageCapacity()));
+                        comparision1Device3ListReview.getItems().add(String.valueOf(temp.getPrice()));
+                        //comparision1Device1ListReview.getItems().add();
+                        // ComparisionListView.getItems().add(productsListView.getSelectionModel().getSelectedItem());
+
                         break;
-                    }
-                    counter++;
-
-                }
-
+                    }}
             }
-
-
-            }
-
+                        numberOfDevice++;
         }
+        /*("phone ID", "brand", "model", "screen size", "internal memory", "price");*/
+        if(phoneRadioButton.isSelected()){
 
-        ObservableList<String> rows = FXCollections.observableArrayList();
-        //
+            if(numberOfDevice==0){
 
-        List<String> row = new ArrayList<>();
+                for (int i=0;i< phoneList.size();i++) {
+                    if(phoneList.get(i).getDetails().equals(productsListView.getSelectionModel().getSelectedItem())){
 
+                        Phone temp = phoneList.get(i);
+                        comparision1Device1ListReview.getItems().clear();
+                        comparision1Device1ListReview.getItems().add("1");
+                        comparision1Device1ListReview.getItems().add(String.valueOf(temp.getPhoneID()));
+                        comparision1Device1ListReview.getItems().add(temp.getBrand());
+                        comparision1Device1ListReview.getItems().add(temp.getModel());
+                        comparision1Device1ListReview.getItems().add(String.valueOf(temp.getScreenSize()));
+                        comparision1Device1ListReview.getItems().add(String.valueOf(temp.getInternalMemory())); //resolution
+                        comparision1Device1ListReview.getItems().add(String.valueOf(temp.getPrice()));
+                        break;
+                    }}
+            }
+            if(numberOfDevice==1){
 
+                for (int i=0;i< phoneList.size();i++) {
+                    if(phoneList.get(i).getDetails().equals(productsListView.getSelectionModel().getSelectedItem())){
 
-        row.add("1");
-        row.add("11");
-        row.add("model");
-        row.add("brand");
-        row.add("fjf");
-        row.add("jfj");
-        row.add("jfj");
-        row.add("pa;");
-        row.add("jfj");
-        row.add("jfjf");
+                        Phone temp = phoneList.get(i);
+                        comparision1Device2ListReview.getItems().clear();
+                        comparision1Device2ListReview.getItems().add("2");
+                        comparision1Device2ListReview.getItems().add(String.valueOf(temp.getPhoneID()));
+                        comparision1Device2ListReview.getItems().add(temp.getBrand());
+                        comparision1Device2ListReview.getItems().add(temp.getModel());
+                        comparision1Device2ListReview.getItems().add(String.valueOf(temp.getScreenSize()));
+                        comparision1Device2ListReview.getItems().add(String.valueOf(temp.getInternalMemory())); //resolution
+                        comparision1Device2ListReview.getItems().add(String.valueOf(temp.getPrice()));
+                        break;
+                    }}
 
-        //compareDetailsTableView.getItems().addAll(row);
-       // compareDetailsTableView.getItems().addAll(row);
-//
-////        rows.addAll("model");
-//        compareDetailsTableView.setItems(rows);*/
+            }
+            if(numberOfDevice==2){
+                for (int i=0;i< phoneList.size();i++) {
+                    if(phoneList.get(i).getDetails().equals(productsListView.getSelectionModel().getSelectedItem())){
+
+                        Phone temp = phoneList.get(i);
+                        comparision1Device3ListReview.getItems().clear();
+                        comparision1Device3ListReview.getItems().add("3");
+                        comparision1Device3ListReview.getItems().add(String.valueOf(temp.getPhoneID()));
+                        comparision1Device3ListReview.getItems().add(temp.getBrand());
+                        comparision1Device3ListReview.getItems().add(temp.getModel());
+                        comparision1Device3ListReview.getItems().add(String.valueOf(temp.getScreenSize()));
+                        comparision1Device3ListReview.getItems().add(String.valueOf(temp.getInternalMemory())); //resolution
+                        comparision1Device3ListReview.getItems().add(String.valueOf(temp.getPrice()));
+                        break;
+                    }}
+
+            }
+            numberOfDevice++;
+        }
+       
     }
 
 }
