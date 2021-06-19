@@ -5,113 +5,160 @@
 <?import javafx.scene.layout.*?>
 
 <SplitPane dividerPositions="0.3, 0.5" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" orientation="VERTICAL" prefHeight="800.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.Controller">
-  <items>
-    <AnchorPane minHeight="-Infinity" minWidth="-Infinity" prefHeight="240.0" prefWidth="722.0">
-         <children>
-            <GridPane layoutX="1.0" layoutY="68.0" prefHeight="152.0" prefWidth="731.0">
-              <columnConstraints>
-                <ColumnConstraints hgrow="SOMETIMES" maxWidth="129.0" minWidth="10.0" prefWidth="120.6" />
-                <ColumnConstraints hgrow="SOMETIMES" maxWidth="211.39999618530274" minWidth="10.0" prefWidth="141.8" />
-                  <ColumnConstraints hgrow="SOMETIMES" maxWidth="211.39999618530274" minWidth="10.0" prefWidth="65.0" />
-                  <ColumnConstraints hgrow="SOMETIMES" maxWidth="189.2" minWidth="10.0" prefWidth="152.2" />
-                  <ColumnConstraints hgrow="SOMETIMES" maxWidth="159.0" minWidth="10.0" prefWidth="137.2" />
-              </columnConstraints>
-              <rowConstraints>
-                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-              </rowConstraints>
-               <children>
-                  <Button maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#getAllProductsButtonPressed" text="Get All Products" GridPane.columnIndex="4" GridPane.rowIndex="4">
-                     <GridPane.margin>
+    <items>
+        <AnchorPane minHeight="-Infinity" minWidth="-Infinity" prefHeight="240.0" prefWidth="722.0">
+            <children>
+                <GridPane layoutX="1.0" layoutY="68.0" prefHeight="152.0" prefWidth="731.0">
+                    <columnConstraints>
+                        <ColumnConstraints hgrow="SOMETIMES" maxWidth="129.0" minWidth="10.0" prefWidth="120.6" />
+                        <ColumnConstraints hgrow="SOMETIMES" maxWidth="211.39999618530274" minWidth="10.0" prefWidth="141.8" />
+                        <ColumnConstraints hgrow="SOMETIMES" maxWidth="211.39999618530274" minWidth="10.0" prefWidth="65.0" />
+                        <ColumnConstraints hgrow="SOMETIMES" maxWidth="189.2" minWidth="10.0" prefWidth="152.2" />
+                        <ColumnConstraints hgrow="SOMETIMES" maxWidth="159.0" minWidth="10.0" prefWidth="137.2" />
+                    </columnConstraints>
+                    <rowConstraints>
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                    </rowConstraints>
+                    <children>
+                        <Button maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#getAllProductsButtonPressed" text="Get All Products" GridPane.columnIndex="4" GridPane.rowIndex="4">
+                            <GridPane.margin>
+                                <Insets left="14.0" right="14.0" />
+                            </GridPane.margin></Button>
+                        <ComboBox fx:id="additionalFeatureComboBox" prefHeight="26.0" prefWidth="168.0" promptText="Additional Feature" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+                        <ComboBox fx:id="feature1ComboBox" onAction="#featureChosen" prefHeight="26.0" prefWidth="169.0" promptText="Feature Type" GridPane.columnIndex="1" />
+                        <ComboBox fx:id="feature2ComboBox" layoutX="108.0" layoutY="46.0" onAction="#featureChosen" prefHeight="26.0" prefWidth="168.0" promptText="Feature Type" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                        <CheckBox fx:id="search2CheckBox" mnemonicParsing="false" onAction="#addSearchLine" text="add Search" GridPane.rowIndex="1" />
+                        <CheckBox fx:id="search3CheckBox" layoutX="24.0" layoutY="50.0" mnemonicParsing="false" onAction="#addSearchLine" text="add Search" GridPane.rowIndex="2" />
+                        <CheckBox fx:id="search4CheckBox" layoutX="24.0" layoutY="82.0" mnemonicParsing="false" onAction="#addSearchLine" text="add Search" GridPane.rowIndex="3" />
+                        <TextField fx:id="feature1TextField" GridPane.columnIndex="3" />
+                        <TextField fx:id="feature2TextField" GridPane.columnIndex="3" GridPane.rowIndex="1" />
+                        <TextField fx:id="feature3TextField" GridPane.columnIndex="3" GridPane.rowIndex="2" />
+                        <ComboBox fx:id="feature3ComboBox" layoutX="122.0" layoutY="78.0" onAction="#featureChosen" prefHeight="26.0" prefWidth="169.0" promptText="Feature Type" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                        <ComboBox fx:id="feature4ComboBox" layoutX="110.0" layoutY="78.0" onAction="#featureChosen" prefHeight="26.0" prefWidth="169.0" promptText="Feature Type" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                        <TextField fx:id="feature4TextField" layoutX="279.0" layoutY="78.0" GridPane.columnIndex="3" GridPane.rowIndex="3" />
+                        <Label fx:id="baseSearchLabel" text="Search Criteria:" />
+                        <Label fx:id="additionalSearchLabel" text="Additional:" GridPane.rowIndex="4" />
+                        <ComboBox fx:id="operation1ComboBox" prefWidth="150.0" promptText="op" GridPane.columnIndex="2" />
+                        <ComboBox fx:id="operation2ComboBox" prefWidth="150.0" promptText="op" GridPane.columnIndex="2" GridPane.rowIndex="1" />
+                        <ComboBox fx:id="operation3ComboBox" prefWidth="150.0" promptText="op" GridPane.columnIndex="2" GridPane.rowIndex="2" />
+                        <ComboBox fx:id="operation4ComboBox" prefWidth="150.0" promptText="op" GridPane.columnIndex="2" GridPane.rowIndex="3" />
+                        <Button maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#searchProducts" text="Search" GridPane.columnIndex="4" GridPane.rowIndex="3">
+                            <GridPane.margin>
+                                <Insets left="14.0" right="14.0" />
+                            </GridPane.margin>
+                        </Button>
+                    </children>
+                    <padding>
                         <Insets left="14.0" right="14.0" />
-                     </GridPane.margin></Button>
-                  <ComboBox fx:id="additionalFeatureComboBox" prefHeight="26.0" prefWidth="168.0" promptText="Additional Feature" GridPane.columnIndex="1" GridPane.rowIndex="4" />
-                  <ComboBox fx:id="feature1ComboBox" onAction="#featureChosen" prefHeight="26.0" prefWidth="169.0" promptText="Feature Type" GridPane.columnIndex="1" />
-                  <ComboBox fx:id="feature2ComboBox" layoutX="108.0" layoutY="46.0" onAction="#featureChosen" prefHeight="26.0" prefWidth="168.0" promptText="Feature Type" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-                  <CheckBox fx:id="search2CheckBox" mnemonicParsing="false" onAction="#addSearchLine" text="add Search" GridPane.rowIndex="1" />
-                  <CheckBox fx:id="search3CheckBox" layoutX="24.0" layoutY="50.0" mnemonicParsing="false" onAction="#addSearchLine" text="add Search" GridPane.rowIndex="2" />
-                  <CheckBox fx:id="search4CheckBox" layoutX="24.0" layoutY="82.0" mnemonicParsing="false" onAction="#addSearchLine" text="add Search" GridPane.rowIndex="3" />
-                  <TextField fx:id="feature1TextField" GridPane.columnIndex="3" />
-                  <TextField fx:id="feature2TextField" GridPane.columnIndex="3" GridPane.rowIndex="1" />
-                  <TextField fx:id="feature3TextField" GridPane.columnIndex="3" GridPane.rowIndex="2" />
-                  <ComboBox fx:id="feature3ComboBox" layoutX="122.0" layoutY="78.0" onAction="#featureChosen" prefHeight="26.0" prefWidth="169.0" promptText="Feature Type" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-                  <ComboBox fx:id="feature4ComboBox" layoutX="110.0" layoutY="78.0" onAction="#featureChosen" prefHeight="26.0" prefWidth="169.0" promptText="Feature Type" GridPane.columnIndex="1" GridPane.rowIndex="3" />
-                  <TextField fx:id="feature4TextField" layoutX="279.0" layoutY="78.0" GridPane.columnIndex="3" GridPane.rowIndex="3" />
-                  <Label fx:id="baseSearchLabel" text="Search Criteria:" />
-                  <Label fx:id="additionalSearchLabel" text="Additional:" GridPane.rowIndex="4" />
-                  <ComboBox fx:id="operation1ComboBox" prefWidth="150.0" promptText="op" GridPane.columnIndex="2" />
-                  <ComboBox fx:id="operation2ComboBox" prefWidth="150.0" promptText="op" GridPane.columnIndex="2" GridPane.rowIndex="1" />
-                  <ComboBox fx:id="operation3ComboBox" prefWidth="150.0" promptText="op" GridPane.columnIndex="2" GridPane.rowIndex="2" />
-                  <ComboBox fx:id="operation4ComboBox" prefWidth="150.0" promptText="op" GridPane.columnIndex="2" GridPane.rowIndex="3" />
-                  <Button maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#searchProducts" text="Search" GridPane.columnIndex="4" GridPane.rowIndex="3">
-                     <GridPane.margin>
-                        <Insets left="14.0" right="14.0" />
-                     </GridPane.margin>
-                  </Button>
-               </children>
-               <padding>
-                  <Insets left="14.0" right="14.0" />
-               </padding>
-            </GridPane>
-            <GridPane layoutX="1.0" layoutY="1.0" prefHeight="70.0" prefWidth="600.0">
-              <columnConstraints>
-                <ColumnConstraints hgrow="SOMETIMES" maxWidth="-Infinity" minWidth="10.0" prefWidth="200.0" />
-                <ColumnConstraints hgrow="SOMETIMES" maxWidth="552.9999847412109" minWidth="10.0" prefWidth="200.0" />
-                  <ColumnConstraints hgrow="SOMETIMES" maxWidth="552.9999847412109" minWidth="10.0" prefWidth="200.0" />
-                  <ColumnConstraints hgrow="SOMETIMES" maxWidth="552.9999847412109" minWidth="10.0" prefWidth="200.0" />
-              </columnConstraints>
-              <rowConstraints>
-                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-              </rowConstraints>
-               <children>
-                  <Label text="Choose Product Type" />
-                  <Label text="Choose Search Type" GridPane.rowIndex="1" />
-                  <RadioButton fx:id="computerRadioButton" mnemonicParsing="false" onAction="#typeRadioButtonSelected" text="Computer" GridPane.columnIndex="1">
-                     <GridPane.margin>
-                        <Insets left="14.0" />
-                     </GridPane.margin>
-                     <toggleGroup>
-                        <ToggleGroup fx:id="choice" />
-                     </toggleGroup>
-                  </RadioButton>
-                  <RadioButton fx:id="phoneRadioButton" mnemonicParsing="false" onAction="#typeRadioButtonSelected" text="Phone" toggleGroup="$choice" GridPane.columnIndex="2">
-                     <GridPane.margin>
-                        <Insets left="14.0" />
-                     </GridPane.margin></RadioButton>
-                  <RadioButton fx:id="baseFeaturesRadioButton" mnemonicParsing="false" onAction="#searchRadioButtonSelected" text="Base Features" GridPane.columnIndex="1" GridPane.rowIndex="1">
-                     <GridPane.margin>
-                        <Insets left="14.0" />
-                     </GridPane.margin>
-                     <toggleGroup>
-                        <ToggleGroup fx:id="searchChoice" />
-                     </toggleGroup>
-                  </RadioButton>
-                  <RadioButton fx:id="additionalFeaturesRadioButton" mnemonicParsing="false" onAction="#searchRadioButtonSelected" text="Additional Features" toggleGroup="$searchChoice" GridPane.columnIndex="2" GridPane.rowIndex="1">
-                     <GridPane.margin>
-                        <Insets left="14.0" />
-                     </GridPane.margin>
-                  </RadioButton>
-                  <RadioButton fx:id="bothFeaturesRadioButton" mnemonicParsing="false" onAction="#searchRadioButtonSelected" text="Both" toggleGroup="$searchChoice" GridPane.columnIndex="3" GridPane.rowIndex="1">
-                     <GridPane.margin>
-                        <Insets left="14.0" />
-                     </GridPane.margin>
-                  </RadioButton>
-               </children>
-            </GridPane>
-         </children></AnchorPane>
-    <AnchorPane minHeight="-Infinity" minWidth="-Infinity" prefHeight="160.0" prefWidth="600.0">
-         <children>
-            <ListView fx:id="productsListView" editable="true" layoutX="2.0" prefHeight="160.0" prefWidth="400.0" />
-            <Button layoutX="415.0" layoutY="14.0" mnemonicParsing="false" onAction="#sortButtonPressed" text="Sort" />
-            <Button layoutX="415.0" layoutY="67.0" mnemonicParsing="false" onAction="#compareButtonPressed" text="Compare" />
-         </children></AnchorPane>
-      <AnchorPane layoutX="10.0" layoutY="10.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="160.0" prefWidth="600.0" />
-  </items>
-   <padding>
-      <Insets bottom="14.0" left="14.0" right="14.0" top="14.0" />
-   </padding>
+                    </padding>
+                </GridPane>
+                <GridPane layoutX="1.0" layoutY="1.0" prefHeight="70.0" prefWidth="600.0">
+                    <columnConstraints>
+                        <ColumnConstraints hgrow="SOMETIMES" maxWidth="-Infinity" minWidth="10.0" prefWidth="200.0" />
+                        <ColumnConstraints hgrow="SOMETIMES" maxWidth="552.9999847412109" minWidth="10.0" prefWidth="200.0" />
+                        <ColumnConstraints hgrow="SOMETIMES" maxWidth="552.9999847412109" minWidth="10.0" prefWidth="200.0" />
+                        <ColumnConstraints hgrow="SOMETIMES" maxWidth="552.9999847412109" minWidth="10.0" prefWidth="200.0" />
+                    </columnConstraints>
+                    <rowConstraints>
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                    </rowConstraints>
+                    <children>
+                        <Label text="Choose Product Type" />
+                        <Label text="Choose Search Type" GridPane.rowIndex="1" />
+                        <RadioButton fx:id="computerRadioButton" mnemonicParsing="false" onAction="#typeRadioButtonSelected" text="Computer" GridPane.columnIndex="1">
+                            <GridPane.margin>
+                                <Insets left="14.0" />
+                            </GridPane.margin>
+                            <toggleGroup>
+                                <ToggleGroup fx:id="choice" />
+                            </toggleGroup>
+                        </RadioButton>
+                        <RadioButton fx:id="phoneRadioButton" mnemonicParsing="false" onAction="#typeRadioButtonSelected" text="Phone" toggleGroup="$choice" GridPane.columnIndex="2">
+                            <GridPane.margin>
+                                <Insets left="14.0" />
+                            </GridPane.margin></RadioButton>
+                        <RadioButton fx:id="baseFeaturesRadioButton" mnemonicParsing="false" onAction="#searchRadioButtonSelected" text="Base Features" GridPane.columnIndex="1" GridPane.rowIndex="1">
+                            <GridPane.margin>
+                                <Insets left="14.0" />
+                            </GridPane.margin>
+                            <toggleGroup>
+                                <ToggleGroup fx:id="searchChoice" />
+                            </toggleGroup>
+                        </RadioButton>
+                        <RadioButton fx:id="additionalFeaturesRadioButton" mnemonicParsing="false" onAction="#searchRadioButtonSelected" text="Additional Features" toggleGroup="$searchChoice" GridPane.columnIndex="2" GridPane.rowIndex="1">
+                            <GridPane.margin>
+                                <Insets left="14.0" />
+                            </GridPane.margin>
+                        </RadioButton>
+                        <RadioButton fx:id="bothFeaturesRadioButton" mnemonicParsing="false" onAction="#searchRadioButtonSelected" text="Both" toggleGroup="$searchChoice" GridPane.columnIndex="3" GridPane.rowIndex="1">
+                            <GridPane.margin>
+                                <Insets left="14.0" />
+                            </GridPane.margin>
+                        </RadioButton>
+                    </children>
+                </GridPane>
+            </children></AnchorPane>
+        <AnchorPane minHeight="-Infinity" minWidth="-Infinity" prefHeight="160.0" prefWidth="600.0">
+            <children>
+                <ListView fx:id="productsListView" editable="true" layoutX="2.0" prefHeight="160.0" prefWidth="400.0" />
+                <Button layoutX="415.0" layoutY="14.0" mnemonicParsing="false" onAction="#sortButtonPressed" text="Sort" />
+                <Button layoutX="415.0" layoutY="67.0" mnemonicParsing="false" onAction="#addintocompareButtonPressed" text="Add into Comparision" />
+                <Button fx:id="ClearComparisionButton" layoutX="415.0" layoutY="104.0" mnemonicParsing="false" onAction="#clearComparisionButtonPressed" prefHeight="26.0" prefWidth="133.0" text="Clear Comparision" />
+            </children></AnchorPane>
+        <AnchorPane layoutX="10.0" layoutY="10.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="129.0" prefWidth="722.0">
+            <children>
+                <GridPane prefHeight="360.0" prefWidth="400.0">
+                    <columnConstraints>
+                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                    </columnConstraints>
+                    <rowConstraints>
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                    </rowConstraints>
+                    <children>
+                        <ListView fx:id="comparision1ClassListView" prefHeight="123.0" prefWidth="313.0" />
+                        <ListView fx:id="comparision1Device1ListReview" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1" />
+                        <ListView fx:id="comparision1Device2ListReview" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="2" />
+                        <ListView fx:id="comparision1Device3ListReview" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="3" />
+                    </children>
+                </GridPane>
+                <GridPane layoutX="400.0" prefHeight="194.0" prefWidth="370.0">
+                    <columnConstraints>
+                        <ColumnConstraints hgrow="SOMETIMES" maxWidth="120.99996948242188" minWidth="10.0" prefWidth="110.99996948242188" />
+                        <ColumnConstraints hgrow="SOMETIMES" maxWidth="74.4" minWidth="0.0" prefWidth="34.8" />
+                        <ColumnConstraints hgrow="SOMETIMES" maxWidth="230.39999999999998" minWidth="10.0" prefWidth="221.60000000000002" />
+                    </columnConstraints>
+                    <rowConstraints>
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                    </rowConstraints>
+                    <children>
+                        <Label prefHeight="18.0" prefWidth="85.0" text="Device Name" />
+                        <Label text="Rating" GridPane.columnIndex="1" />
+                        <Label text="Reviews" GridPane.columnIndex="2" />
+                        <Label fx:id="comparision2Name1Label" text="Label" GridPane.rowIndex="1" />
+                        <Label fx:id="comparision2Name2Label" text="Label" GridPane.rowIndex="2" />
+                        <Label fx:id="comparision2Name3Label" text="Label" GridPane.rowIndex="3" />
+                        <Label fx:id="comparision2Rating1Label" text="Label" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                        <Label fx:id="comparision2Rating2Label" text="Label" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                        <Label fx:id="comparision2Rating3Label" text="Label" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                        <ListView fx:id="comparision2Reviews1ListView" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="2" GridPane.rowIndex="1" />
+                        <ListView fx:id="comparision2Reviews2ListView" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="2" GridPane.rowIndex="2" />
+                        <ListView fx:id="comparision2Reviews3ListView" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="2" GridPane.rowIndex="3" />
+                    </children>
+                </GridPane>
+            </children></AnchorPane>
+    </items>
+    <padding>
+        <Insets bottom="14.0" left="14.0" right="14.0" top="14.0" />
+    </padding>
 </SplitPane>
