@@ -117,6 +117,7 @@ public class Computer {
         if (storageCapacity > 1024) {
             tempString += "Large Storage ";
         }
+        tempString += String.format(" -> ($%.2f)", price);
         return tempString;
     }
 

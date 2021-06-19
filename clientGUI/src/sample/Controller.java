@@ -14,10 +14,7 @@ import java.io.IOException;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Scanner;
+import java.util.*;
 
 public class Controller {
 
@@ -674,6 +671,26 @@ public class Controller {
     }
 
     public void sortButtonPressed(ActionEvent event) {
+        productList.clear();
+        productsListView.getItems().clear();
+
+        if (computerRadioButton.isSelected()) {
+            Collections.sort(computerList, Comparator.comparingDouble(Computer ::getPrice));
+            Collections.reverse(computerList);
+            for(Computer tempComputer: computerList) {
+                productList.add(tempComputer.getDetails());
+                productsListView.getItems().add(tempComputer.getDetails());
+            }
+        }
+        else if (phoneRadioButton.isSelected()) {
+            Collections.sort(phoneList, Comparator.comparingDouble(Phone ::getPrice));
+            Collections.reverse(phoneList);
+            for(Phone tempPhone: phoneList) {
+                productList.add(tempPhone.getDetails());
+                productsListView.getItems().add(tempPhone.getDetails());
+            }
+        }
+
 
     }
     public void clearComparisionButtonPressed(ActionEvent event) {
