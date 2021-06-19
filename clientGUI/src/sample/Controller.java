@@ -786,9 +786,12 @@ public class Controller {
                     }}
 
             }
+            if(numberOfDevice>=3){
+
+            }
             numberOfDevice++;
         }
-       
+
     }
 
 }
