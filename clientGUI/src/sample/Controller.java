@@ -698,12 +698,22 @@ public class Controller {
         comparision1Device1ListReview.getItems().clear();
         comparision1Device2ListReview.getItems().clear();
         comparision1Device3ListReview.getItems().clear();
+        comparision2Name1Label.setText("Device 1");
+        comparision2Name2Label.setText("Device 2");
+        comparision2Name3Label.setText("Device 3");
+
+        comparision2Reviews1ListView.getItems().clear();
+        comparision2Reviews2ListView.getItems().clear();
+        comparision2Reviews3ListView.getItems().clear();
+
 
     }
 
     public void addintocompareButtonPressed(ActionEvent event) {
 
-
+/*comparision2Name1Label*/
+        int rating=0;
+        int counter=0;
         if(computerRadioButton.isSelected()){
 
             if(numberOfDevice==0){
@@ -723,6 +733,21 @@ public class Controller {
                     comparision1Device1ListReview.getItems().add(String.valueOf(temp.getMemory()));
                     comparision1Device1ListReview.getItems().add(String.valueOf(temp.getStorageCapacity()));
                     comparision1Device1ListReview.getItems().add(String.valueOf(temp.getPrice()));
+                    comparision2Name1Label.setText(temp.getModel());
+                    /*Comments*/
+                    for(Review x:temp.getReviews()){
+                        comparision2Reviews1ListView.getItems().add(x.getComment());
+                    }
+
+                    /*Rating*/
+                   /* for(Review a:temp.getReviews()){
+                        System.out.println("there is a " + a.getRate());
+                        rating = rating + a.getRate();
+                        counter++;
+                    }
+
+                    comparision2Rating1Label.setText(String.valueOf(rating/counter));*/
+
                     //comparision1Device1ListReview.getItems().add();
                    // ComparisionListView.getItems().add(productsListView.getSelectionModel().getSelectedItem());
                     break;
@@ -745,9 +770,19 @@ public class Controller {
                         comparision1Device2ListReview.getItems().add(String.valueOf(temp.getMemory()));
                         comparision1Device2ListReview.getItems().add(String.valueOf(temp.getStorageCapacity()));
                         comparision1Device2ListReview.getItems().add(String.valueOf(temp.getPrice()));
+                        comparision2Name2Label.setText(temp.getModel());
                         //comparision1Device1ListReview.getItems().add();
                         // ComparisionListView.getItems().add(productsListView.getSelectionModel().getSelectedItem());
+
+                        /*Comments*/
+                        for(Review x:temp.getReviews()){
+                            comparision2Reviews2ListView.getItems().add(x.getComment());
+                        }
+
                         break;
+
+
+
                     }}
             }
             if(numberOfDevice==2){
@@ -767,8 +802,14 @@ public class Controller {
                         comparision1Device3ListReview.getItems().add(String.valueOf(temp.getMemory()));
                         comparision1Device3ListReview.getItems().add(String.valueOf(temp.getStorageCapacity()));
                         comparision1Device3ListReview.getItems().add(String.valueOf(temp.getPrice()));
+                        comparision2Name3Label.setText(temp.getModel());
                         //comparision1Device1ListReview.getItems().add();
                         // ComparisionListView.getItems().add(productsListView.getSelectionModel().getSelectedItem());
+
+                        /*Comments*/
+                        for(Review x:temp.getReviews()){
+                            comparision2Reviews3ListView.getItems().add(x.getComment());
+                        }
 
                         break;
                     }}
@@ -792,6 +833,7 @@ public class Controller {
                         comparision1Device1ListReview.getItems().add(String.valueOf(temp.getScreenSize()));
                         comparision1Device1ListReview.getItems().add(String.valueOf(temp.getInternalMemory())); //resolution
                         comparision1Device1ListReview.getItems().add(String.valueOf(temp.getPrice()));
+                        comparision2Name1Label.setText(temp.getModel());
                         break;
                     }}
             }
@@ -809,6 +851,7 @@ public class Controller {
                         comparision1Device2ListReview.getItems().add(String.valueOf(temp.getScreenSize()));
                         comparision1Device2ListReview.getItems().add(String.valueOf(temp.getInternalMemory())); //resolution
                         comparision1Device2ListReview.getItems().add(String.valueOf(temp.getPrice()));
+                        comparision2Name2Label.setText(temp.getModel());
                         break;
                     }}
 
@@ -826,6 +869,7 @@ public class Controller {
                         comparision1Device3ListReview.getItems().add(String.valueOf(temp.getScreenSize()));
                         comparision1Device3ListReview.getItems().add(String.valueOf(temp.getInternalMemory())); //resolution
                         comparision1Device3ListReview.getItems().add(String.valueOf(temp.getPrice()));
+                        comparision2Name3Label.setText(temp.getModel());
                         break;
                     }}
 
