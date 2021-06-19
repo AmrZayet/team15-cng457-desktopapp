@@ -136,4 +136,19 @@ public class Computer {
                 ", reviews=" + reviews +
                 '}';
     }
+
+    public List<String> getElementsList() {
+        List<String> tempStringList = new ArrayList<>();
+
+        tempStringList.add(String.valueOf(computerID));
+        tempStringList.add(brand);
+        tempStringList.add(model);
+        tempStringList.add(String.valueOf(screenSize));
+        tempStringList.add(screenResolution);
+        tempStringList.add(processor);
+        tempStringList.add(String.valueOf(memory));
+        tempStringList.add(String.valueOf(storageCapacity));
+        tempStringList.add(String.valueOf(price));
+        return tempStringList;
+    }
 }

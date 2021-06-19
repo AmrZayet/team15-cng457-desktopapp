@@ -1,5 +1,6 @@
 package sample;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class Phone {
@@ -101,5 +102,17 @@ public class Phone {
                 ", price=" + price +
                 ", reviews=" + reviews +
                 '}';
+    }
+
+    public List<String> getElementsList() {
+        List<String> tempStringList = new ArrayList<>();
+
+        tempStringList.add(String.valueOf(phoneID));
+        tempStringList.add(brand);
+        tempStringList.add(model);
+        tempStringList.add(String.valueOf(screenSize));
+        tempStringList.add(String.valueOf(internalMemory));
+        tempStringList.add(String.valueOf(price));
+        return tempStringList;
     }
 }

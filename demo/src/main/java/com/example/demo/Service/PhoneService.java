@@ -187,6 +187,8 @@ public class PhoneService {
 
     public List<Phone> searchPhonesAdditional(String featureNamePart) {
 
+        featureNamePart = featureNamePart.replace("-", " ");
+
         List<Feature> featureList = featureService.getFeatureWithNameContains(featureNamePart);
         System.out.println(String.format("\n\nfeature list count = %d\n\n", featureList.size()));
 

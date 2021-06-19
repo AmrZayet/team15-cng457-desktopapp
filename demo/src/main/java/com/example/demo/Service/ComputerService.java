@@ -218,8 +218,8 @@ public class ComputerService {
     }
 
     public List<Computer> searchComputersAdditional(String featureNamePart) {
-//        return computerRepository.getSearchAddtional("new");
-//        "upper(feature.feature_name) like upper(\"%new%\") or upper(feature.feature_name) like upper(\"%nother%\")"
+        featureNamePart = featureNamePart.replace("-", " ");
+
         List<Feature> featureList = featureService.getFeatureWithNameContains(featureNamePart);
         System.out.println(String.format("\n\nfeature list count = %d\n\n", featureList.size()));
 

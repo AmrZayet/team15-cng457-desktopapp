@@ -98,7 +98,7 @@ public class ComputerController {
             searchResults = computerService.searchComputersAdditional(criteria);
         }
         else if (searchType.equals("both")) {
-            String [] itemsArray = criteria.split("\\s*_\\s*");
+            String [] itemsArray = criteria.split("\\s*__\\s*");
             List<String> searchCriterias = Arrays.asList(itemsArray);
 
             String additionalCriteria = searchCriterias.get(0);
