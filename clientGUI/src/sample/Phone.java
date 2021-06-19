@@ -1,5 +1,8 @@
 package sample;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class Phone {
 
     private int phoneID;
@@ -8,6 +11,8 @@ public class Phone {
     private float screenSize;
     private float internalMemory;
     private float price;
+
+    private List<Review> reviews;
 
     public Phone(int phoneID, String brand, String model, float screenSize, float internalMemory, float price) {
         this.phoneID = phoneID;
@@ -66,6 +71,14 @@ public class Phone {
         this.price = price;
     }
 
+    public List<Review> getReviews() {
+        return reviews;
+    }
+
+    public void setReviews(List<Review> reviews) {
+        this.reviews = reviews;
+    }
+
     public String getDetails() {
         String tempString = String.format("%s %s ", brand, model);
         if (screenSize > 6) {
@@ -86,6 +99,7 @@ public class Phone {
                 ", screenSize=" + screenSize +
                 ", internalMemory=" + internalMemory +
                 ", price=" + price +
+                ", reviews=" + reviews +
                 '}';
     }
 }

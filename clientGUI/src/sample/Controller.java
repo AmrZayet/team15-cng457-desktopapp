@@ -326,7 +326,26 @@ public class Controller {
         }
     }
 
-    public Computer parseComputer(JSONObject tempObj) {
+    public List<Review> parseReviews(String tempReviewsString) throws ParseException {
+        JSONParser parser = new JSONParser();
+        Object obj = parser.parse(tempReviewsString);
+        JSONArray reviewsArray = (JSONArray) obj;
+
+        List<Review> tempReviews = new ArrayList<>();
+
+        for (int i = 0; i < reviewsArray.size(); i++) {
+            JSONObject tempReviewObj = (JSONObject) reviewsArray.get(i);
+
+            int tempRevID = Integer.parseInt(tempReviewObj.get("revID").toString());
+            String tempComment = tempReviewObj.get("comment").toString();
+            int tempRate = Integer.parseInt(tempReviewObj.get("revID").toString());
+            tempReviews.add(new Review(tempRevID,tempComment, tempRate));
+//            productsListView.getItems().add(tempReviews.get(i).toString());
+        }
+        return tempReviews;
+    }
+
+    public Computer parseComputer(JSONObject tempObj) throws ParseException {
         int tempComputerID = Integer.parseInt(tempObj.get("computerID").toString());
         String tempBrand = tempObj.get("brand").toString();
         String tempModel = tempObj.get("model").toString();
@@ -337,12 +356,16 @@ public class Controller {
         float tempStorageCapacity = Float.parseFloat(tempObj.get("storageCapacity").toString());
         float tempPrice = Float.parseFloat(tempObj.get("price").toString());
 
+        String tempReviewsString = tempObj.get("reviews").toString();
+        List<Review> tempReviews = parseReviews(tempReviewsString);
+
         Computer tempComputer;
         tempComputer = new Computer(tempComputerID, tempBrand,tempModel, tempScreenSize, tempScreenResolution, tempProcessor, tempMemory,tempStorageCapacity, tempPrice);
+        tempComputer.setReviews(tempReviews);
         return tempComputer;
     }
 
-    public Phone parsePhone(JSONObject tempObj) {
+    public Phone parsePhone(JSONObject tempObj) throws ParseException {
         int tempPhoneID = Integer.parseInt(tempObj.get("phoneID").toString());
         String tempBrand = tempObj.get("brand").toString();
         String tempModel = tempObj.get("model").toString();
@@ -350,8 +373,12 @@ public class Controller {
         float tempInternalMemory = Float.parseFloat(tempObj.get("internalMemory").toString());
         float tempPrice = Float.parseFloat(tempObj.get("price").toString());
 
+        String tempReviewsString = tempObj.get("reviews").toString();
+        List<Review> tempReviews = parseReviews(tempReviewsString);
+
         Phone tempPhone;
         tempPhone = new Phone(tempPhoneID, tempBrand,tempModel, tempScreenSize, tempInternalMemory, tempPrice);
+        tempPhone.setReviews(tempReviews);
         return tempPhone;
     }
 
