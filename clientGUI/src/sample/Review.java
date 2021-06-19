@@ -14,11 +14,7 @@ public class Review {
 
     @Override
     public String toString() {
-        return "Review{" +
-                "revID=" + revID +
-                ", comment='" + comment + '\'' +
-                ", rate=" + rate +
-                '}';
+        return "(" + rate + ") -> " + comment;
     }
 
     public int getRevID() {

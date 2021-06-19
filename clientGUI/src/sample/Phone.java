@@ -1,6 +1,7 @@
 package sample;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 public class Phone {
@@ -73,6 +74,18 @@ public class Phone {
 
     public List<Review> getReviews() {
         return reviews;
+    }
+
+    public List<Review> getLastReviews(int n) {
+        List<Review> tempReviewsList = reviews;
+
+        Collections.reverse(tempReviewsList);
+        if(tempReviewsList.size() > n) {
+            return  tempReviewsList.subList(0, n);
+        }
+        else {
+            return tempReviewsList;
+        }
     }
 
     public void setReviews(List<Review> reviews) {
