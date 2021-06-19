@@ -86,6 +86,7 @@ public class Phone {
         if (internalMemory > 128) {
             tempString += "Large Storage ";
         }
+        tempString += String.format(" -> ($%.2f)", price);
         return tempString;
     }
 
