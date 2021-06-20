@@ -109,8 +109,8 @@
             <children>
                 <ListView fx:id="productsListView" editable="true" layoutX="2.0" prefHeight="160.0" prefWidth="396.0" />
                 <Button layoutX="415.0" layoutY="14.0" mnemonicParsing="false" onAction="#sortButtonPressed" text="Sort" />
-                <Button layoutX="415.0" layoutY="67.0" mnemonicParsing="false" onAction="#addintocompareButtonPressed" text="Add into Comparision" />
-                <Button fx:id="ClearComparisionButton" layoutX="415.0" layoutY="104.0" mnemonicParsing="false" onAction="#clearComparisionButtonPressed" prefHeight="26.0" prefWidth="133.0" text="Clear Comparision" />
+                <Button layoutX="415.0" layoutY="67.0" mnemonicParsing="false" onAction="#addintocompareButtonPressed" text="Add into Comparison" />
+                <Button fx:id="ClearComparisionButton" layoutX="415.0" layoutY="104.0" mnemonicParsing="false" onAction="#clearComparisionButtonPressed" prefHeight="26.0" prefWidth="133.0" text="Clear Comparison" />
             </children></AnchorPane>
         <AnchorPane layoutX="10.0" layoutY="10.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="300.0" prefWidth="822.0">
             <children>
