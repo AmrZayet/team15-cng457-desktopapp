@@ -833,192 +833,87 @@ public class Controller {
             return;
         }
 
-        int rating=0;
-        if(computerRadioButton.isSelected()){
+        String tempSelectedString = productsListView.getSelectionModel().getSelectedItem();
+        Product tempProduct = null;
 
-            if(numberOfDevice==0){
-
-                for (int i=0;i< computerList.size();i++) {
-                    if(computerList.get(i).getDetails().equals(productsListView.getSelectionModel().getSelectedItem())){
-                        comparision2Rating1Label.setVisible(true);
-                        comparision2Reviews1ListView.setVisible(true);
-                        comparision1Device1ListReview.setVisible(true);
-
-                        Computer temp = computerList.get(i);
-                        comparision1Device1ListReview.getItems().clear();
-                        comparision1Device1ListReview.getItems().add("1");
-
-                        comparision1Device1ListReview.getItems().addAll(temp.getElementsList());
-
-                        comparision2Name1Label.setText(temp.getModel());
-
-                        /*Comments*/
-                        for(Review x:temp.getLastReviews(3)){
-                            rating += x.getRate();
-                            comparision2Reviews1ListView.getItems().add(x.toString());
-                        }
-                        comparision2Rating1Label.setText(String.format("%.2f",Float.valueOf(rating) / temp.getLastReviews(3).size()));
-                        numberOfDevice++;
-                        return;
-                    }
+        if(computerRadioButton.isSelected()) {
+            for (int i = 0; i < computerList.size(); i++) {
+                if (computerList.get(i).getDetails().equals(tempSelectedString)) {
+                    tempProduct = computerList.get(i);
+                    break;
                 }
             }
-            if(numberOfDevice==1){
-
-                for (int i=0;i< computerList.size();i++) {
-                    if(computerList.get(i).getDetails().equals(productsListView.getSelectionModel().getSelectedItem())){
-
-                        comparision2Rating2Label.setVisible(true);
-                        comparision2Reviews2ListView.setVisible(true);
-                        comparision1Device2ListReview.setVisible(true);
-
-                        Computer temp = computerList.get(i);
-                        comparision1Device2ListReview.getItems().clear();
-                        comparision1Device2ListReview.getItems().add("2");
-
-                        comparision1Device2ListReview.getItems().addAll(temp.getElementsList());
-
-                        comparision2Name2Label.setText(temp.getModel());
-
-
-                        /*Comments*/
-                        for(Review x:temp.getLastReviews(3)){
-                            rating += x.getRate();
-                            comparision2Reviews2ListView.getItems().add(x.toString());
-                        }
-                        comparision2Rating2Label.setText(String.format("%.2f", Float.valueOf(rating) / temp.getLastReviews(3).size()));
-                        numberOfDevice++;
-                        return;
-
-                    }
-                }
-            }
-            if(numberOfDevice==2){
-
-                for (int i=0;i< computerList.size();i++) {
-                    if(computerList.get(i).getDetails().equals(productsListView.getSelectionModel().getSelectedItem())){
-
-                        comparision2Rating3Label.setVisible(true);
-                        comparision2Reviews3ListView.setVisible(true);
-                        comparision1Device3ListReview.setVisible(true);
-
-                        Computer temp = computerList.get(i);
-                        comparision1Device3ListReview.getItems().clear();
-                        comparision1Device3ListReview.getItems().add("3");
-
-                        comparision1Device3ListReview.getItems().addAll(temp.getElementsList());
-
-                        comparision2Name3Label.setText(temp.getModel());
-
-                        /*Comments*/
-                        for(Review x:temp.getLastReviews(3)){
-                            rating += x.getRate();
-                            comparision2Reviews3ListView.getItems().add(x.toString());
-                        }
-                        comparision2Rating3Label.setText(String.format("%.2f", Float.valueOf(rating) / temp.getLastReviews(3).size()));
-                        numberOfDevice++;
-                        return;
-                    }
-                }
-            }
-
         }
-        /*("phone ID", "brand", "model", "screen size", "internal memory", "price");*/
-        else if(phoneRadioButton.isSelected()){
-
-            if(numberOfDevice==0){
-
-                for (int i=0;i< phoneList.size();i++) {
-                    if(phoneList.get(i).getDetails().equals(productsListView.getSelectionModel().getSelectedItem())){
-
-                        comparision2Rating1Label.setVisible(true);
-                        comparision2Reviews1ListView.setVisible(true);
-                        comparision1Device1ListReview.setVisible(true);
-
-                        Phone temp = phoneList.get(i);
-                        comparision1Device1ListReview.getItems().clear();
-                        comparision1Device1ListReview.getItems().add("1");
-
-                        comparision1Device1ListReview.getItems().addAll(temp.getElementsList());
-
-                        comparision2Name1Label.setText(temp.getModel());
-
-                        /*Comments*/
-                        for(Review x:temp.getLastReviews(3)){
-                            rating += x.getRate();
-                            comparision2Reviews1ListView.getItems().add(x.toString());
-                        }
-                        comparision2Rating1Label.setText(String.format("%.2f", Float.valueOf(rating) / temp.getLastReviews(3).size()));
-
-                        numberOfDevice++;
-                        return;
-                    }
+        else if (phoneRadioButton.isSelected()) {
+            for (int i = 0; i < phoneList.size(); i++) {
+                if (phoneList.get(i).getDetails().equals(tempSelectedString)) {
+                    tempProduct = phoneList.get(i);
+                    break;
                 }
             }
-            if(numberOfDevice==1){
-
-                for (int i=0;i< phoneList.size();i++) {
-                    if(phoneList.get(i).getDetails().equals(productsListView.getSelectionModel().getSelectedItem())){
-
-                        comparision2Rating2Label.setVisible(true);
-                        comparision2Reviews2ListView.setVisible(true);
-                        comparision1Device2ListReview.setVisible(true);
-
-                        Phone temp = phoneList.get(i);
-                        comparision1Device2ListReview.getItems().clear();
-                        comparision1Device2ListReview.getItems().add("2");
-
-                        comparision1Device2ListReview.getItems().addAll(temp.getElementsList());
-
-                        comparision2Name2Label.setText(temp.getModel());
-
-                        /*Comments*/
-                        for(Review x:temp.getLastReviews(3)){
-                            rating += x.getRate();
-                            comparision2Reviews2ListView.getItems().add(x.toString());
-                        }
-                        comparision2Rating2Label.setText(String.format("%.2f", Float.valueOf(rating) / temp.getLastReviews(3).size()));
-                        numberOfDevice++;
-                        return;
-                    }
-                }
-            }
-            if(numberOfDevice==2){
-
-                for (int i=0;i< phoneList.size();i++) {
-                    if(phoneList.get(i).getDetails().equals(productsListView.getSelectionModel().getSelectedItem())){
-
-                        comparision2Rating3Label.setVisible(true);
-                        comparision2Reviews3ListView.setVisible(true);
-                        comparision1Device3ListReview.setVisible(true);
-
-                        Phone temp = phoneList.get(i);
-                        comparision1Device3ListReview.getItems().clear();
-                        comparision1Device3ListReview.getItems().add("3");
-
-                        comparision1Device3ListReview.getItems().addAll(temp.getElementsList());
-
-                        comparision2Name3Label.setText(temp.getModel());
-
-                        /*Comments*/
-                        for(Review x:temp.getLastReviews(3)){
-                            rating += x.getRate();
-                            comparision2Reviews3ListView.getItems().add(x.toString());
-                        }
-                        comparision2Rating3Label.setText(String.format("%.2f",Float.valueOf(rating) / temp.getLastReviews(3).size()));
-                        numberOfDevice++;
-                        return;
-                    }
-                }
-            }
-
         }
 
-        Alert a = new Alert(Alert.AlertType.ERROR);
-        a.setTitle("Error!");
-        a.setContentText("You should select a device to be added!");
-        a.show();
 
+        if (tempProduct == null) {
+            Alert a = new Alert(Alert.AlertType.ERROR);
+            a.setTitle("Error!");
+            a.setContentText("You should select a device to be added!");
+            a.show();
+            return;
+        }
+
+        int totalRating = 0;
+        float avgRating = 0;
+
+        List<Review> tempProductReviewsList = tempProduct.getLastReviews(3);
+        List<String> tempReviewsString = new ArrayList<>();
+
+        for(Review x:tempProductReviewsList){
+            totalRating += x.getRate();
+            tempReviewsString.add(x.toString());
+        }
+        avgRating = (float) totalRating / tempProductReviewsList.size();
+
+
+        if(numberOfDevice == 0) {
+            comparision2Rating1Label.setVisible(true);
+            comparision2Reviews1ListView.setVisible(true);
+            comparision1Device1ListReview.setVisible(true);
+
+            comparision1Device1ListReview.getItems().clear();
+            comparision1Device1ListReview.getItems().add("1");
+            comparision1Device1ListReview.getItems().addAll(tempProduct.getElementsList());
+
+            comparision2Name1Label.setText(tempProduct.getModel());
+            comparision2Reviews1ListView.getItems().addAll(tempReviewsString);
+            comparision2Rating1Label.setText(String.format("%.2f", avgRating));
+        }
+        else if (numberOfDevice == 1) {
+            comparision2Rating2Label.setVisible(true);
+            comparision2Reviews2ListView.setVisible(true);
+            comparision1Device2ListReview.setVisible(true);
+
+            comparision1Device2ListReview.getItems().clear();
+            comparision1Device2ListReview.getItems().add("2");
+            comparision1Device2ListReview.getItems().addAll(tempProduct.getElementsList());
+
+            comparision2Name2Label.setText(tempProduct.getModel());
+            comparision2Reviews2ListView.getItems().addAll(tempProduct.getElementsList());
+            comparision2Rating2Label.setText(String.format("%.2f", avgRating));
+        }
+        else if (numberOfDevice == 2) {
+            comparision2Rating3Label.setVisible(true);
+            comparision2Reviews3ListView.setVisible(true);
+            comparision1Device3ListReview.setVisible(true);
+
+            comparision1Device3ListReview.getItems().clear();
+            comparision1Device3ListReview.getItems().add("3");
+            comparision1Device3ListReview.getItems().addAll(tempProduct.getElementsList());
+
+            comparision2Name3Label.setText(tempProduct.getModel());
+            comparision2Reviews3ListView.getItems().addAll(tempProduct.getElementsList());
+            comparision2Rating3Label.setText(String.format("%.2f", avgRating));
+        }
+        numberOfDevice++;
     }
-
 }
