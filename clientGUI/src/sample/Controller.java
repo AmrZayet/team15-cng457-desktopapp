@@ -15,10 +15,12 @@ import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.*;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 public class Controller {
 
-    int numberOfDevice=0;
+    private int numberOfDevice=0;
 
     @FXML
     private RadioButton computerRadioButton;
@@ -47,7 +49,7 @@ public class Controller {
     private List<Computer> computerList = new ArrayList<>();
     private List<Phone> phoneList = new ArrayList<>();
 
-   // private int indexArray[]= {-1,-1,-1};
+    // private int indexArray[]= {-1,-1,-1};
     //private String deviceType="notDefined";
 
     @FXML
@@ -91,7 +93,6 @@ public class Controller {
     private ListView<String>   comparision2Reviews2ListView;
     @FXML
     private ListView<String>   comparision2Reviews3ListView;
-
 
 
 
@@ -371,9 +372,9 @@ public class Controller {
 
         if (search2CheckBox.isSelected()) {
 //           && numericKeys.contains(feature2ComboBox.getValue().toString())) {
-        Object t = feature2ComboBox.getValue();
-        if (t != null) tmpString = t.toString(); else tmpString = "";
-        operation2ComboBox.setVisible(numericKeys.contains(tmpString));
+            Object t = feature2ComboBox.getValue();
+            if (t != null) tmpString = t.toString(); else tmpString = "";
+            operation2ComboBox.setVisible(numericKeys.contains(tmpString));
         }
         else {
             operation2ComboBox.setVisible(false);
@@ -809,6 +810,88 @@ public class Controller {
 
     }
 
+    private class addCompareDetails implements Runnable {
+        private Product tempProduct;
+
+        public addCompareDetails(Product tempProduct) {
+            this.tempProduct = tempProduct;
+        }
+
+        @Override
+        public void run() {
+            if(numberOfDevice == 0) {
+                comparision1Device1ListReview.setVisible(true);
+
+                comparision1Device1ListReview.getItems().clear();
+                comparision1Device1ListReview.getItems().add("1");
+                comparision1Device1ListReview.getItems().addAll(tempProduct.getElementsList());
+            }
+            else if (numberOfDevice == 1) {
+                comparision1Device2ListReview.setVisible(true);
+
+                comparision1Device2ListReview.getItems().clear();
+                comparision1Device2ListReview.getItems().add("2");
+                comparision1Device2ListReview.getItems().addAll(tempProduct.getElementsList());
+            }
+            else if (numberOfDevice == 2) {
+                comparision1Device3ListReview.setVisible(true);
+
+                comparision1Device3ListReview.getItems().clear();
+                comparision1Device3ListReview.getItems().add("3");
+                comparision1Device3ListReview.getItems().addAll(tempProduct.getElementsList());
+            }
+        }
+    }
+
+    private class addCompareReviews implements Runnable {
+        private Product tempProduct;
+
+        public addCompareReviews(Product tempProduct) {
+            this.tempProduct = tempProduct;
+        }
+
+        @Override
+        public void run() {
+
+            int totalRating = 0;
+            float avgRating = 0;
+
+            List<Review> tempProductReviewsList = tempProduct.getLastReviews(3);
+            List<String> tempReviewsString = new ArrayList<>();
+
+            for(Review x:tempProductReviewsList){
+                totalRating += x.getRate();
+                tempReviewsString.add(x.toString());
+            }
+            avgRating = (float) totalRating / tempProductReviewsList.size();
+
+            if(numberOfDevice == 0) {
+                comparision2Rating1Label.setVisible(true);
+                comparision2Reviews1ListView.setVisible(true);
+
+                comparision2Name1Label.setText(tempProduct.getModel());
+                comparision2Reviews1ListView.getItems().addAll(tempReviewsString);
+                comparision2Rating1Label.setText(String.format("%.2f", avgRating));
+            }
+            else if (numberOfDevice == 1) {
+                comparision2Rating2Label.setVisible(true);
+                comparision2Reviews2ListView.setVisible(true);
+
+                comparision2Name2Label.setText(tempProduct.getModel());
+                comparision2Reviews2ListView.getItems().addAll(tempProduct.getElementsList());
+                comparision2Rating2Label.setText(String.format("%.2f", avgRating));
+            }
+            else if (numberOfDevice == 2) {
+                comparision2Rating3Label.setVisible(true);
+                comparision2Reviews3ListView.setVisible(true);
+
+                comparision2Name3Label.setText(tempProduct.getModel());
+                comparision2Reviews3ListView.getItems().addAll(tempProduct.getElementsList());
+                comparision2Rating3Label.setText(String.format("%.2f", avgRating));
+            }
+        }
+    }
+
     public void addintocompareButtonPressed(ActionEvent event) {
 
         if (numberOfDevice == 3) {
@@ -862,58 +945,67 @@ public class Controller {
             return;
         }
 
-        int totalRating = 0;
-        float avgRating = 0;
+        ExecutorService executor = Executors.newFixedThreadPool(1);
+        executor.execute(new addCompareReviews(tempProduct));
+        executor.shutdown();
 
-        List<Review> tempProductReviewsList = tempProduct.getLastReviews(3);
-        List<String> tempReviewsString = new ArrayList<>();
-
-        for(Review x:tempProductReviewsList){
-            totalRating += x.getRate();
-            tempReviewsString.add(x.toString());
-        }
-        avgRating = (float) totalRating / tempProductReviewsList.size();
-
-
-        if(numberOfDevice == 0) {
-            comparision2Rating1Label.setVisible(true);
-            comparision2Reviews1ListView.setVisible(true);
-            comparision1Device1ListReview.setVisible(true);
-
-            comparision1Device1ListReview.getItems().clear();
-            comparision1Device1ListReview.getItems().add("1");
-            comparision1Device1ListReview.getItems().addAll(tempProduct.getElementsList());
-
-            comparision2Name1Label.setText(tempProduct.getModel());
-            comparision2Reviews1ListView.getItems().addAll(tempReviewsString);
-            comparision2Rating1Label.setText(String.format("%.2f", avgRating));
-        }
-        else if (numberOfDevice == 1) {
-            comparision2Rating2Label.setVisible(true);
-            comparision2Reviews2ListView.setVisible(true);
-            comparision1Device2ListReview.setVisible(true);
-
-            comparision1Device2ListReview.getItems().clear();
-            comparision1Device2ListReview.getItems().add("2");
-            comparision1Device2ListReview.getItems().addAll(tempProduct.getElementsList());
-
-            comparision2Name2Label.setText(tempProduct.getModel());
-            comparision2Reviews2ListView.getItems().addAll(tempProduct.getElementsList());
-            comparision2Rating2Label.setText(String.format("%.2f", avgRating));
-        }
-        else if (numberOfDevice == 2) {
-            comparision2Rating3Label.setVisible(true);
-            comparision2Reviews3ListView.setVisible(true);
-            comparision1Device3ListReview.setVisible(true);
-
-            comparision1Device3ListReview.getItems().clear();
-            comparision1Device3ListReview.getItems().add("3");
-            comparision1Device3ListReview.getItems().addAll(tempProduct.getElementsList());
-
-            comparision2Name3Label.setText(tempProduct.getModel());
-            comparision2Reviews3ListView.getItems().addAll(tempProduct.getElementsList());
-            comparision2Rating3Label.setText(String.format("%.2f", avgRating));
+        while (! executor.isTerminated()) {
         }
         numberOfDevice++;
+        return;
+
+//        int totalRating = 0;
+//        float avgRating = 0;
+//
+//        List<Review> tempProductReviewsList = tempProduct.getLastReviews(3);
+//        List<String> tempReviewsString = new ArrayList<>();
+//
+//        for(Review x:tempProductReviewsList){
+//            totalRating += x.getRate();
+//            tempReviewsString.add(x.toString());
+//        }
+//        avgRating = (float) totalRating / tempProductReviewsList.size();
+//
+//
+//        if(numberOfDevice == 0) {
+//            comparision2Rating1Label.setVisible(true);
+//            comparision2Reviews1ListView.setVisible(true);
+//            comparision1Device1ListReview.setVisible(true);
+//
+//            comparision1Device1ListReview.getItems().clear();
+//            comparision1Device1ListReview.getItems().add("1");
+//            comparision1Device1ListReview.getItems().addAll(tempProduct.getElementsList());
+//
+//            comparision2Name1Label.setText(tempProduct.getModel());
+//            comparision2Reviews1ListView.getItems().addAll(tempReviewsString);
+//            comparision2Rating1Label.setText(String.format("%.2f", avgRating));
+//        }
+//        else if (numberOfDevice == 1) {
+//            comparision2Rating2Label.setVisible(true);
+//            comparision2Reviews2ListView.setVisible(true);
+//            comparision1Device2ListReview.setVisible(true);
+//
+//            comparision1Device2ListReview.getItems().clear();
+//            comparision1Device2ListReview.getItems().add("2");
+//            comparision1Device2ListReview.getItems().addAll(tempProduct.getElementsList());
+//
+//            comparision2Name2Label.setText(tempProduct.getModel());
+//            comparision2Reviews2ListView.getItems().addAll(tempProduct.getElementsList());
+//            comparision2Rating2Label.setText(String.format("%.2f", avgRating));
+//        }
+//        else if (numberOfDevice == 2) {
+//            comparision2Rating3Label.setVisible(true);
+//            comparision2Reviews3ListView.setVisible(true);
+//            comparision1Device3ListReview.setVisible(true);
+//
+//            comparision1Device3ListReview.getItems().clear();
+//            comparision1Device3ListReview.getItems().add("3");
+//            comparision1Device3ListReview.getItems().addAll(tempProduct.getElementsList());
+//
+//            comparision2Name3Label.setText(tempProduct.getModel());
+//            comparision2Reviews3ListView.getItems().addAll(tempProduct.getElementsList());
+//            comparision2Rating3Label.setText(String.format("%.2f", avgRating));
+//        }
+//        numberOfDevice++;
     }
 }
