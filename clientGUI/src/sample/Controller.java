@@ -15,6 +15,7 @@ import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.*;
+import java.util.concurrent.Executor;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
@@ -945,7 +946,8 @@ public class Controller {
             return;
         }
 
-        ExecutorService executor = Executors.newFixedThreadPool(1);
+        ExecutorService executor = Executors.newFixedThreadPool(2);
+        executor.execute(new addCompareDetails(tempProduct));
         executor.execute(new addCompareReviews(tempProduct));
         executor.shutdown();
 
