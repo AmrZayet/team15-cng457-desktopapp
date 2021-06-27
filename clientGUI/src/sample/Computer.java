@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-public class Computer {
+public class Computer  extends Product{
 
     private int computerID;
     private String brand;
